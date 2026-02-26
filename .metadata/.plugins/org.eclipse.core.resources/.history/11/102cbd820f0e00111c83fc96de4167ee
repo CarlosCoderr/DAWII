@@ -1,0 +1,12 @@
+package com.heladeria.service;
+
+import com.heladeria.model.Categoria;
+import java.util.List;
+
+public interface CategoriaService {
+  List<Categoria> listar();
+  Categoria obtener(Integer id);
+  Categoria crear(Categoria c);
+  Categoria actualizar(Integer id, Categoria c);
+  void eliminar(Integer id);
+}

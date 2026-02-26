@@ -1,0 +1,45 @@
+package com.heladeria.service;
+
+import com.heladeria.model.Categoria;
+import com.heladeria.repository.CategoriaRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class CategoriaServiceImpl implements CategoriaService {
+
+    private final CategoriaRepository categoriaRepository;
+
+    @Override
+    public List<Categoria> listar() {
+        return categoriaRepository.findAll();
+    }
+
+    @Override
+    public Categoria obtenerPorId(Integer id) {
+        return categoriaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Categoria no encontrada: " + id));
+    }
+
+    @Override
+    public Categoria crear(Categoria categoria) {
+        categoria.setId(null);
+        return categoriaRepository.save(categoria);
+    }
+
+    @Override
+    public Categoria actualizar(Integer id, Categoria categoria) {
+        Categoria existente = obtenerPorId(id);
+        existente.setNombre(categoria.getNombre());
+        return categoriaRepository.save(existente);
+    }
+
+    @Override
+    public void eliminar(Integer id) {
+        Categoria existente = obtenerPorId(id);
+        categoriaRepository.delete(existente);
+    }
+}

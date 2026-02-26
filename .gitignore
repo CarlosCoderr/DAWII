@@ -1,0 +1,13 @@
+# Backend
+backend/target/
+backend/.mvn/
+backend/.settings/
+backend/*.log
+
+# Frontend
+frontend/heladeria-web/node_modules/
+frontend/heladeria-web/dist/
+
+# General
+node_modules/
+*.log

@@ -1,0 +1,5 @@
+package com.heladeria.service;
+
+public class VentaServiceImpl {
+
+}

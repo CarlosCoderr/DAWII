@@ -1,0 +1,109 @@
+package com.heladeria.service.impl;
+
+import com.heladeria.model.DetalleVenta;
+import com.heladeria.model.Helado;
+import com.heladeria.model.Venta;
+import com.heladeria.repository.HeladoRepository;
+import com.heladeria.repository.VentaRepository;
+import com.heladeria.service.VentaService;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
+@Service
+@RequiredArgsConstructor
+public class VentaServiceImpl implements VentaService {
+
+  private final VentaRepository ventaRepository;
+  private final HeladoRepository heladoRepository;
+
+  @Override
+  public java.util.List<Venta> listar() {
+    return ventaRepository.findAll();
+  }
+
+  @Override
+  public Venta obtener(Integer id) {
+    return ventaRepository.findById(id)
+        .orElseThrow(() -> new RuntimeException("Venta no encontrada: " + id));
+  }
+
+  @Override
+  @Transactional
+  public Venta crearVenta(Venta venta) {
+    if (venta.getCliente() == null || venta.getCliente().getId() == null) {
+      throw new RuntimeException("Debe enviar cliente{id}");
+    }
+    if (venta.getEmpleado() == null || venta.getEmpleado().getId() == null) {
+      throw new RuntimeException("Debe enviar empleado{id}");
+    }
+    if (venta.getDetalles() == null || venta.getDetalles().isEmpty()) {
+      throw new RuntimeException("Debe enviar detalles de la venta");
+    }
+
+    venta.setId(null);
+    venta.setFecha(venta.getFecha() != null ? venta.getFecha() : LocalDateTime.now());
+
+    BigDecimal total = BigDecimal.ZERO;
+
+    for (DetalleVenta d : venta.getDetalles()) {
+      if (d.getHelado() == null || d.getHelado().getId() == null) {
+        throw new RuntimeException("Cada detalle debe enviar helado{id}");
+      }
+      if (d.getCantidad() == null || d.getCantidad() <= 0) {
+        throw new RuntimeException("Cantidad inválida en detalle");
+      }
+
+      Integer heladoId = d.getHelado().getId();
+      Helado helado = heladoRepository.findById(heladoId)
+          .orElseThrow(() -> new RuntimeException("Helado no encontrado: " + heladoId));
+
+      // stock
+      if (helado.getStock() < d.getCantidad()) {
+        throw new RuntimeException("Stock insuficiente para: " + helado.getNombre());
+      }
+
+      // precio unitario (si no viene, usar del helado)
+      if (d.getPrecioUnitario() == null) {
+        d.setPrecioUnitario(helado.getPrecio());
+      }
+
+      // link detalle → venta, detalle → helado
+      d.setVenta(venta);
+      d.setHelado(helado);
+
+      // total
+      total = total.add(d.getPrecioUnitario().multiply(BigDecimal.valueOf(d.getCantidad())));
+
+      // descontar stock
+      helado.setStock(helado.getStock() - d.getCantidad());
+      heladoRepository.save(helado);
+    }
+
+    venta.setTotal(total);
+    return ventaRepository.save(venta);
+  }
+
+  @Override
+  @Transactional
+  public void anularVenta(Integer id) {
+    Venta venta = obtener(id);
+
+    // devolver stock
+    for (DetalleVenta d : venta.getDetalles()) {
+      Integer heladoId = d.getHelado().getId();
+      Helado helado = heladoRepository.findById(heladoId)
+          .orElseThrow(() -> new RuntimeException("Helado no encontrado: " + heladoId));
+
+      helado.setStock(helado.getStock() + d.getCantidad());
+      heladoRepository.save(helado);
+    }
+
+    // borra venta y detalles (orphanRemoval + cascade)
+    ventaRepository.delete(venta);
+  }
+}

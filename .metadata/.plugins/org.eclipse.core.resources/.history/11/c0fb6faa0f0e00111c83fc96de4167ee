@@ -1,0 +1,16 @@
+package com.heladeria.service;
+
+import com.heladeria.model.Venta;
+
+import java.util.List;
+
+public interface VentaService {
+  List<Venta> listar();
+  Venta obtener(Integer id);
+
+  // REAL:
+  Venta crearVenta(Venta venta);
+
+  // REAL: anular (devuelve stock y borra venta)
+  void anularVenta(Integer id);
+}

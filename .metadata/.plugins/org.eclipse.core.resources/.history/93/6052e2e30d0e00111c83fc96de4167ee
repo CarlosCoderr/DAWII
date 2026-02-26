@@ -1,0 +1,5 @@
+package com.heladeria.repository;
+
+public interface HeladoRepository {
+
+}

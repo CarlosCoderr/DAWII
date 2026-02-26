@@ -1,0 +1,13 @@
+package com.heladeria.repository;
+
+import com.heladeria.model.Categoria;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ClienteRepository extends JpaRepository<Cliente, Integer> {}
+
+
+
+
+public interface ClienteRepository {
+
+}

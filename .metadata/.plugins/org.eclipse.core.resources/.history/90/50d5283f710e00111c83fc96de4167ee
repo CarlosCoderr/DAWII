@@ -1,0 +1,57 @@
+package com.heladeria.service.impl;
+
+import com.heladeria.model.Helado;
+import com.heladeria.repository.EmpleadoRepository;
+import com.heladeria.repository.HeladoRepository;
+import com.heladeria.service.HeladoService;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+
+public class HeladoServiceImpl implements HeladoService {
+
+    private final HeladoRepository repo;
+    
+    public HeladoServiceImpl(HeladoRepository repo) {
+        this.repo = repo;
+    }
+    
+
+    @Override
+    public List<Helado> listar() {
+        return repo.findAll();
+    }
+
+    @Override
+    public Helado obtener(Integer id) {
+        return repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Helado no encontrado: " + id));
+    }
+
+    @Override
+    public Helado crear(Helado helado) {
+        helado.setId(null);
+        if (helado.getStock() == null) helado.setStock(0);
+        return repo.save(helado);
+    }
+
+    @Override
+    public Helado actualizar(Integer id, Helado helado) {
+        Helado db = obtener(id);
+
+        db.setNombre(helado.getNombre());
+        db.setSabor(helado.getSabor());
+        db.setPrecio(helado.getPrecio());
+        db.setStock(helado.getStock());
+        db.setCategoria(helado.getCategoria()); // viene como categoria{id}
+
+        return repo.save(db);
+    }
+
+    @Override
+    public void eliminar(Integer id) {
+        repo.delete(obtener(id));
+    }
+}

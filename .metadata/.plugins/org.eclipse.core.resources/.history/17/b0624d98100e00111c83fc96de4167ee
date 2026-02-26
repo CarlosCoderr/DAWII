@@ -1,0 +1,52 @@
+package com.heladeria.service.impl;
+
+import com.heladeria.model.Empleado;
+import com.heladeria.repository.CategoriaRepository;
+import com.heladeria.repository.EmpleadoRepository;
+import com.heladeria.service.EmpleadoService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class EmpleadoServiceImpl implements EmpleadoService {
+
+    private final EmpleadoRepository repo;
+    
+    public CategoriaServiceImpl(EmpleadoRepository repo) {
+        this.repo = repo;
+    }
+
+    @Override
+    public List<Empleado> listar() {
+        return repo.findAll();
+    }
+
+    @Override
+    public Empleado obtener(Integer id) {
+        return repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Empleado no encontrado: " + id));
+    }
+
+    @Override
+    public Empleado crear(Empleado empleado) {
+        empleado.setId(null);
+        return repo.save(empleado);
+    }
+
+    @Override
+    public Empleado actualizar(Integer id, Empleado empleado) {
+        Empleado db = obtener(id);
+        db.setNombre(empleado.getNombre());
+        db.setCargo(empleado.getCargo());
+        db.setTelefono(empleado.getTelefono());
+        return repo.save(db);
+    }
+
+    @Override
+    public void eliminar(Integer id) {
+        repo.delete(obtener(id));
+    }
+}

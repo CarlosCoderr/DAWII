@@ -1,0 +1,46 @@
+<div style="max-width: 920px; margin: 24px auto; font-family: Arial, sans-serif;">
+  <h2>Helados</h2>
+
+  <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;">
+    <input [(ngModel)]="nombre" placeholder="Nombre" style="padding:10px;" />
+    <input [(ngModel)]="sabor" placeholder="Sabor" style="padding:10px;" />
+
+    <input type="number" [(ngModel)]="precio" placeholder="Precio" style="padding:10px;" />
+    <input type="number" [(ngModel)]="stock" placeholder="Stock" style="padding:10px;" />
+
+    <select [(ngModel)]="categoriaId" style="padding:10px;">
+      <option [ngValue]="null">-- Selecciona categoría --</option>
+      <option *ngFor="let c of categorias" [ngValue]="c.id">{{ c.nombre }}</option>
+    </select>
+
+    <button type="button" (click)="crear()" style="padding:10px; cursor:pointer;" $event.preventDefault()>Crear</button>
+  </div>
+
+  <p *ngIf="cargando">Cargando...</p>
+  <p *ngIf="error" style="color:red;">{{ error }}</p>
+
+  <table border="1" cellpadding="10" cellspacing="0" width="100%" *ngIf="!cargando">
+    <thead>
+      <tr>
+        <th style="width:70px;">ID</th>
+        <th>Nombre</th>
+        <th>Sabor</th>
+        <th style="width:110px;">Precio</th>
+        <th style="width:90px;">Stock</th>
+        <th style="width:120px;">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let h of helados">
+        <td>{{ h.id }}</td>
+        <td>{{ h.nombre }}</td>
+        <td>{{ h.sabor }}</td>
+        <td>{{ h.precio }}</td>
+        <td>{{ h.stock }}</td>
+        <td>
+          <button type="button" (click)="eliminar(h.id)" style="cursor:pointer;">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
