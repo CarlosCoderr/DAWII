@@ -1,0 +1,17 @@
+/* You can add global styles to this file, and also import other style files */
+:root {
+  --pastel-rose: #f8c8d8;
+  --pastel-peach: #fde3cf;
+  --pastel-mint: #cdeee6;
+  --pastel-lilac: #e9d8f5;
+  --pastel-sky: #d9ecff;
+  --ink: #3c3c4a;
+  --muted: #6f6b7a;
+  --border: #f1e6ef;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background: linear-gradient(180deg, #fff9fc 0%, #f7fbff 100%);
+}

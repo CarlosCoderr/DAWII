@@ -1,0 +1,95 @@
+<div class="page helados-light">
+  <header class="title-bar">
+    <div class="title">
+      <span class="title-icon">🧁</span>
+      <h2>Clientes</h2>
+    </div>
+    <div class="title-actions">
+      <a class="chip-link" routerLink="/helados">Helados</a>
+      <a class="btn primary" routerLink="/categorias">Categorias</a>
+    </div>
+  </header>
+
+  <div class="toolbar">
+    <span
+      class="add-link"
+      role="button"
+      tabindex="0"
+      (click)="nuevo()"
+      (keydown.enter)="nuevo()"
+      (keydown.space)="nuevo()"
+    >
+      agrega un nuevo cliente
+    </span>
+    <label class="search">
+      <span>Buscar</span>
+      <input
+        type="search"
+        [(ngModel)]="busqueda"
+        name="busqueda"
+        placeholder="Buscar por nombre o telefono"
+      />
+    </label>
+  </div>
+
+  <form class="form-grid" (ngSubmit)="guardar()">
+    <label class="field">
+      <span>Nombre</span>
+      <input [(ngModel)]="nombre" name="nombre" placeholder="Ej. Juan Perez" />
+    </label>
+    <label class="field">
+      <span>Telefono</span>
+      <input [(ngModel)]="telefono" name="telefono" placeholder="Ej. 987654321" />
+    </label>
+
+    <div class="actions">
+      <button class="btn primary" type="submit">
+        {{ editandoId ? 'Actualizar' : 'Guardar' }}
+      </button>
+      <button
+        class="btn ghost"
+        type="button"
+        *ngIf="editandoId"
+        (click)="cancelarEdicion()"
+      >
+        Cancelar
+      </button>
+    </div>
+  </form>
+
+  <p class="status" *ngIf="cargando">Cargando...</p>
+  <p class="status error" *ngIf="error">{{ error }}</p>
+  <p class="status empty" *ngIf="!cargando && !error && clientesFiltrados.length === 0">
+    No hay clientes para mostrar.
+  </p>
+
+  <section class="table-card" *ngIf="!cargando && clientesFiltrados.length > 0">
+    <table class="fancy-table">
+      <thead>
+        <tr>
+          <th style="width: 80px;">ID</th>
+          <th>Nombre</th>
+          <th>Telefono</th>
+          <th style="width: 180px;">Acc.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of clientesFiltrados">
+          <td class="accent">#{{ c.id }}</td>
+          <td class="name">
+            <span class="dot">•</span>
+            {{ c.nombre }}
+          </td>
+          <td>{{ c.telefono }}</td>
+          <td>
+            <div class="row-actions">
+              <button class="btn ghost" type="button" (click)="editar(c)">Editar</button>
+              <button class="btn danger" type="button" (click)="eliminar(c.id)">Borrar</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</div>
+

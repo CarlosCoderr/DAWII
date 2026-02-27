@@ -1,0 +1,58 @@
+<div class="page helados-light">
+  <header class="title-bar">
+    <div class="title">
+      <span class="title-icon">🍦</span>
+      <h2>Lista de Helados</h2>
+    </div>
+    <div class="title-actions">
+      <a class="chip-link" routerLink="/categorias">Inicio</a>
+      <a class="btn primary" routerLink="/helados/nuevo">+ Nuevo Helado</a>
+    </div>
+  </header>
+
+  <p class="status" *ngIf="cargando">Cargando...</p>
+  <p class="status error" *ngIf="error">{{ error }}</p>
+  <p class="status empty" *ngIf="!cargando && !error && helados.length === 0">
+    Aun no hay helados. Agrega el primero.
+  </p>
+
+  <section class="table-card" *ngIf="!cargando && helados.length > 0">
+    <table class="fancy-table">
+      <thead>
+        <tr>
+          <th style="width: 70px;">ID</th>
+          <th>Nombre</th>
+          <th>Sabor</th>
+          <th style="width: 110px;">Precio</th>
+          <th style="width: 100px;">Stock</th>
+          <th style="width: 160px;">Categoria</th>
+          <th style="width: 160px;">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let h of helados">
+          <td class="accent">#{{ h.id }}</td>
+          <td class="name">
+            <span class="dot">•</span>
+            {{ h.nombre }}
+          </td>
+          <td>{{ h.sabor }}</td>
+          <td class="price">S/ {{ h.precio | number : '1.2-2' }}</td>
+          <td>{{ h.stock }} un.</td>
+          <td>
+            <span class="pill">
+              {{ h.categoria?.nombre || 'Sin categoria' }}
+            </span>
+          </td>
+          <td>
+            <div class="row-actions">
+              <a class="btn ghost" [routerLink]="['/helados/editar', h.id]">Editar</a>
+              <button class="btn danger" type="button" (click)="eliminar(h.id)">Borrar</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</div>
+

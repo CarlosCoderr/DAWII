@@ -1,0 +1,56 @@
+<div class="page helados-light">
+  <header class="title-bar">
+    <div class="title">
+      <span class="title-icon">🍧</span>
+      <h2>Categorias</h2>
+    </div>
+    <div class="title-actions">
+      <a class="chip-link" routerLink="/helados">Helados</a>
+      <a class="btn primary" routerLink="/clientes">Clientes</a>
+    </div>
+  </header>
+
+  <form class="form-inline" (ngSubmit)="crear()">
+    <label class="field">
+      <span>Nombre de categoria</span>
+      <input
+        type="text"
+        [(ngModel)]="nombre"
+        name="nombre"
+        placeholder="Ej. Frutales, Cremosos, Veganos"
+      />
+    </label>
+    <button class="btn primary" type="submit">Crear</button>
+  </form>
+
+  <p class="status" *ngIf="cargando">Cargando...</p>
+  <p class="status error" *ngIf="error">{{ error }}</p>
+  <p class="status empty" *ngIf="!cargando && !error && categorias.length === 0">
+    Aun no hay categorias. Agrega la primera para empezar.
+  </p>
+
+  <section class="table-card" *ngIf="!cargando && categorias.length > 0">
+    <table class="fancy-table">
+      <thead>
+        <tr>
+          <th style="width: 80px;">ID</th>
+          <th>Nombre</th>
+          <th style="width: 160px;">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of categorias">
+          <td class="accent">#{{ c.id }}</td>
+          <td class="name">
+            <span class="dot">•</span>
+            {{ c.nombre }}
+          </td>
+          <td>
+            <button class="btn danger" type="button" (click)="eliminar(c.id)">Borrar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</div>
+

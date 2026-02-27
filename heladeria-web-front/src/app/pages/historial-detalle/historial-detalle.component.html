@@ -1,0 +1,97 @@
+<div class="page helados-light">
+  <header class="title-bar">
+    <div class="title">
+      <span class="title-icon">🧾</span>
+      <h2>Historial + detalle</h2>
+    </div>
+    <div class="title-actions">
+      <a class="chip-link" routerLink="/helados">Helados</a>
+      <a class="btn primary" routerLink="/clientes">Clientes</a>
+    </div>
+  </header>
+
+  <section class="filter-card">
+    <div class="filter-header">Historial + detalle</div>
+    <div class="filters">
+      <label class="field">
+        <span>Desde</span>
+        <input type="date" [(ngModel)]="desde" name="desde" />
+      </label>
+      <label class="field">
+        <span>Hasta</span>
+        <input type="date" [(ngModel)]="hasta" name="hasta" />
+      </label>
+      <label class="field grow">
+        <span>Cliente</span>
+        <input type="text" [(ngModel)]="cliente" name="cliente" placeholder="Cliente..." />
+      </label>
+      <button class="btn primary" type="button">Filtrar</button>
+    </div>
+  </section>
+
+  <section class="table-card">
+    <table class="fancy-table" *ngIf="historial.length > 0">
+      <thead>
+        <tr>
+          <th style="width: 80px;">ID</th>
+          <th>Fecha</th>
+          <th>Cliente</th>
+          <th style="width: 140px;">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let h of historial">
+          <td class="accent">#{{ h.id }}</td>
+          <td>{{ h.fecha }}</td>
+          <td class="name">
+            <span class="dot">•</span>
+            {{ h.cliente }}
+          </td>
+          <td class="price">S/ {{ h.total | number : '1.2-2' }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="status empty" *ngIf="historial.length === 0">
+      No hay ventas registradas.
+    </p>
+  </section>
+
+  <section class="detail-card" *ngIf="detalleItems.length > 0">
+    <div class="detail-header">
+      <h3>Detalle venta #{{ detalleVentaId }}</h3>
+      <div class="detail-actions">
+        <button class="btn ghost" type="button">Imprimir</button>
+        <div class="total-chip">
+          <span>Total</span>
+          <strong>S/ {{ detalleTotal | number : '1.2-2' }}</strong>
+        </div>
+      </div>
+    </div>
+
+    <table class="fancy-table compact">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th style="width: 120px;">Cant.</th>
+          <th style="width: 120px;">Precio</th>
+          <th style="width: 120px;">Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of detalleItems">
+          <td>{{ item.producto }}</td>
+          <td>{{ item.cantidad }}</td>
+          <td>S/ {{ item.precio | number : '1.2-2' }}</td>
+          <td class="price">S/ {{ item.subtotal | number : '1.2-2' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  <section class="detail-card empty" *ngIf="detalleItems.length === 0">
+    <div class="detail-header">
+      <h3>Detalle venta</h3>
+    </div>
+    <p class="status empty">Selecciona una venta para ver el detalle.</p>
+  </section>
+</div>
+

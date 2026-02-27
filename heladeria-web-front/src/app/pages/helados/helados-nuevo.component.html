@@ -1,0 +1,43 @@
+<div class="form-page">
+  <section class="form-card">
+    <h2>Nuevo Helado</h2>
+
+    <form class="form-body" (ngSubmit)="guardar()">
+      <label class="field">
+        <span>Nombre del producto</span>
+        <input [(ngModel)]="nombre" name="nombre" placeholder="Ej. Tricolor" />
+      </label>
+      <label class="field">
+        <span>Sabor principal</span>
+        <input [(ngModel)]="sabor" name="sabor" placeholder="Ej. Vainilla" />
+      </label>
+
+      <div class="field-row">
+        <label class="field">
+          <span>Precio (S/)</span>
+          <input type="number" [(ngModel)]="precio" name="precio" placeholder="Ej. 8.50" />
+        </label>
+        <label class="field">
+          <span>Stock disponible</span>
+          <input type="number" [(ngModel)]="stock" name="stock" placeholder="Ej. 20" />
+        </label>
+      </div>
+
+      <label class="field">
+        <span>Categoria</span>
+        <select [(ngModel)]="categoriaId" name="categoriaId">
+          <option [ngValue]="null">Selecciona categoria</option>
+          <option *ngFor="let c of categorias" [ngValue]="c.id">{{ c.nombre }}</option>
+        </select>
+      </label>
+
+      <button class="btn primary" type="submit" [disabled]="cargando">
+        Guardar Helado
+      </button>
+    </form>
+
+    <p class="status error" *ngIf="error">{{ error }}</p>
+    <a class="back-link" routerLink="/helados">Volver al inventario</a>
+  </section>
+</div>
+
