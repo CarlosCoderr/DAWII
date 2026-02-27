@@ -1,0 +1,33 @@
+<div class="categoria-container">
+
+  <h2><i class="fa-solid fa-list-check"></i> Detalle de Ventas Realizadas</h2>
+
+  <table class="categoria-table">
+    <thead>
+      <tr>
+        <th><i class="fa-solid fa-hashtag"></i> ID</th>
+        <th><i class="fa-solid fa-ice-cream"></i> Helado Seleccionado</th>
+        <th><i class="fa-solid fa-layer-group"></i> Cantidad</th>
+        <th><i class="fa-solid fa-tag"></i> Precio Unit.</th>
+        <th><i class="fa-solid fa-wallet"></i> Subtotal</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let d of detalles">
+        <td><strong>#{{ d.id }}</strong></td>
+        <td>{{ d.helado.nombre }}</td>
+        <td>{{ d.cantidad }}</td>
+        <td>S/ {{ d.precioUnitario }}</td>
+        <td class="total">
+          <i class="fa-solid fa-money-bill-wave"></i>
+          S/ {{ totalDetalle(d) }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="detalles.length === 0" style="text-align: center; padding: 20px; color: #5d4037;">
+    <i class="fa-solid fa-circle-info"></i> No hay detalles registrados para esta consulta.
+  </div>
+</div>

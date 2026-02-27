@@ -1,0 +1,109 @@
+<div class="categoria-container">
+
+  <h2><i class="fa-solid fa-cash-register"></i> Nueva Venta</h2>
+
+  <form [formGroup]="ventaForm" class="categoria-form">
+
+    <div class="form-group">
+      <label><i class="fa-solid fa-user-tag"></i> Cliente</label>
+      <select formControlName="cliente">
+        <option value="">-- Seleccione un cliente --</option>
+        <option *ngFor="let c of clientes" [value]="c.id">
+          {{ c.nombre }}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label><i class="fa-solid fa-id-badge"></i> Atendido por</label>
+      <select formControlName="empleado">
+        <option value="">-- Seleccione empleado --</option>
+        <option *ngFor="let e of empleados" [value]="e.id">
+          {{ e.nombre }} ({{ e.cargo }})
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label><i class="fa-solid fa-ice-cream"></i> Producto / Helado</label>
+      <select formControlName="helado">
+        <option value="">-- Seleccione un sabor --</option>
+        <option *ngFor="let h of helados" [value]="h.id">
+          {{ h.nombre }} - S/ {{ h.precio }}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label><i class="fa-solid fa-layer-group"></i> Cantidad</label>
+      <input type="number" formControlName="cantidad" placeholder="0">
+    </div>
+
+    <div class="form-buttons">
+      <button type="button" class="btn btn-primary" (click)="agregarDetalle()">
+        <i class="fa-solid fa-cart-plus"></i> Añadir al carrito
+      </button>
+    </div>
+
+  </form>
+
+  <hr>
+
+  <h2><i class="fa-solid fa-receipt"></i> Detalle de la Venta</h2>
+
+  <table class="categoria-table" *ngIf="detalles.length > 0">
+    <thead>
+      <tr>
+        <th><i class="fa-solid fa-ice-cream"></i> Helado</th>
+        <th><i class="fa-solid fa-hashtag"></i> Cant.</th>
+        <th><i class="fa-solid fa-tag"></i> Precio</th>
+        <th><i class="fa-solid fa-money-bill"></i> Subtotal</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let d of detalles">
+        <td>{{ d.helado.nombre }}</td>
+        <td>{{ d.cantidad }}</td>
+        <td>S/ {{ d.precioUnitario }}</td>
+        <td class="total">S/ {{ d.cantidad * d.precioUnitario }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="detalles.length > 0" style="text-align:right; margin-top: 15px;">
+    <h3 style="color:#00897b;">
+      <i class="fa-solid fa-calculator"></i> Total a Pagar: S/ {{ total() }}
+    </h3>
+    <button
+      class="btn btn-primary"
+      (click)="guardarVenta()"
+      style="margin-top: 10px;"
+    >
+      <i class="fa-solid fa-check-double"></i> Finalizar Venta
+    </button>
+  </div>
+
+  <hr>
+
+  <h2><i class="fa-solid fa-clock-rotate-left"></i> Historial de Ventas</h2>
+
+  <table class="categoria-table">
+    <thead>
+      <tr>
+        <th><i class="fa-solid fa-calendar-day"></i> Fecha</th>
+        <th><i class="fa-solid fa-user"></i> Cliente</th>
+        <th><i class="fa-solid fa-user-tie"></i> Empleado</th>
+        <th><i class="fa-solid fa-coins"></i> Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let v of ventas">
+        <td>{{ v.fecha | date:'short' }}</td>
+        <td>{{ v.cliente.nombre }}</td>
+        <td>{{ v.empleado.nombre }}</td>
+        <td class="total">S/ {{ v.total }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
