@@ -1,0 +1,89 @@
+<div class="categoria-container">
+
+  <h2><i class="fa-solid fa-ice-cream fa-beat"></i>  Gestión de Helados</h2>
+
+  <form  [formGroup]="heladoForm" (ngSubmit)="guardar()"  class="categoria-form">
+
+    <div class="form-group">
+      <label><i class="fa-solid fa-ice-cream"></i>Nombre</label>
+      <input type="text" formControlName="nombre" placeholder="Ej: Helado clásico">
+    </div>
+
+    <div class="form-group">
+      <label><i class="fa-solid fa-palette"></i>Sabor</label>
+      <input type="text" formControlName="sabor" placeholder="Ej: Vainilla">
+    </div>
+
+    <div class="form-group">
+      <label><i class="fa-solid fa-coins"></i>Precio (S/)</label>
+      <input type="number" formControlName="precio" placeholder="Ej: 5.00">
+    </div>
+
+    <div class="form-group">
+      <label><i class="fa-solid fa-cubes"></i>Stock</label>
+      <input type="number" formControlName="stock" placeholder="Ej: 100">
+    </div>
+
+    <div class="form-group">
+      <label><i class="fa-solid fa-list"></i>Categoría</label>
+      <select formControlName="categoriaId">
+        <option value="">Seleccione</option>
+        <option *ngFor="let c of categorias" [value]="c.id">
+          {{ c.nombre }}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-buttons">
+      <button type="submit" class="btn btn-primary">
+        <i class="fa-solid" 
+          [ngClass]="editando ? 'fa-pen-to-square' : 'fa-plus'"></i>
+        {{ editando ? 'Actualizar' : 'Guardar' }}
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-secondary"
+        *ngIf="editando"
+        (click)="resetForm()"
+      >
+        Cancelar
+      </button>
+    </div>
+
+  </form>
+
+  <hr>
+  <h2><i class="fa-solid fa-users"></i> Lista de Helados</h2>
+  <table class="categoria-table">
+    <thead>
+      <tr>
+        <th><i class="fa-solid fa-ice-cream"></i> Nombre</th>
+        <th><i class="fa-solid fa-palette"></i> Sabor</th>
+        <th><i class="fa-solid fa-coins"></i> Precio</th>
+        <th><i class="fa-solid fa-cubes"></i> Stock</th>
+        <th><i class="fa-solid fa-list"></i> Categoría</th>
+        <th><i class="fa-solid fa-gear"></i> Acciones</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let h of helados">
+        <td>{{ h.nombre }}</td>
+        <td>{{ h.sabor }}</td>
+        <td>S/ {{ h.precio }}</td>
+        <td>{{ h.stock }}</td>
+        <td>{{ h.categoria.nombre }}</td>
+        <td>
+          <button class="btn btn-edit" (click)="editar(h)">
+            <i class="fa-solid fa-pen"></i>
+          </button>
+          <button class="btn btn-delete" (click)="eliminar(h.id!)">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

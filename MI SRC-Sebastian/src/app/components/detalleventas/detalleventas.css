@@ -1,0 +1,62 @@
+.total {
+  font-weight: bold;
+  color: #00897b; /* Color turquesa oscuro para resaltar totales */
+}
+
+.categoria-container {
+  max-width: 900px;
+  margin: 40px auto;
+  background: #fffdf0; /* Fondo crema suave */
+  padding: 15px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  font-family: 'Quicksand', 'Segoe UI', sans-serif; /* Tipografía consistente */
+  border: 2px solid #e0f2f1;
+}
+
+.categoria-container h2 {
+  text-align: center;
+  color: #00897b; 
+  margin: 10pt;
+  font-size: 20pt;
+}
+
+/* Estilo para la tabla unificado con empleados */
+.categoria-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.categoria-table th {
+  background: #4db6ac; /* Fondo turquesa para cabeceras */
+  color: white;
+  padding: 15px;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+}
+
+.categoria-table td {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid #f1f8f7;
+  color: #444;
+}
+
+.categoria-table tr:hover {
+  background: #f1fbf9; /* Efecto hover sutil */
+}
+
+/* Iconos con el color del tema */
+h2 > i, th > i, td > i {
+  margin-right: 6px;
+  color: inherit; /* Hereda el blanco en TH o el turquesa en H2 */
+}
+
+td .fa-money-bill-wave {
+  color: #26a69a;
+}

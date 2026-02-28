@@ -1,0 +1,68 @@
+<div class="categoria-container">
+
+  <h2><i class="fa-solid fa-user-plus"></i> Registrar Empleado</h2>
+
+  <form [formGroup]="empleadoForm" class="categoria-form">
+    <div class="form-group input-icon">
+      <label><i class="fa-solid fa-user"></i> Nombre</label>
+      <div class="input-wrapper">
+        <input type="text" formControlName="nombre" placeholder="Ej: María López">
+      </div>
+    </div>
+    <div class="form-group input-icon">
+      <label><i class="fa-solid fa-briefcase"></i> Cargo</label>
+      <div class="input-wrapper">
+        <input type="text" formControlName="cargo" placeholder="Ej: Vendedora">
+      </div>
+    </div>
+    <div class="form-group input-icon">
+      <label><i class="fa-solid fa-phone"></i> Teléfono</label>
+      <div class="input-wrapper">
+        <input type="text" formControlName="telefono" placeholder="Ej: 987654321">
+      </div>
+    </div>
+    <div class="form-buttons">
+      <button type="button" class="btn btn-primary" (click)="guardar()">
+        <i class="fa-solid" 
+           [ngClass]="editando ? 'fa-pen-to-square' : 'fa-plus'"></i>
+        {{ editando ? 'Actualizar' : 'Agregar' }}
+      </button>
+
+      <button type="button"
+        class="btn btn-secondary"
+        (click)="resetForm()"
+        *ngIf="editando">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+  </form>
+
+  <hr>
+  <h2><i class="fa-solid fa-users"></i> Lista de Empleados</h2>
+  <table class="categoria-table">
+    <thead>
+      <tr>
+        <th><i class="fa-solid fa-user"></i> Nombre</th>
+        <th><i class="fa-solid fa-briefcase"></i> Cargo</th>
+        <th><i class="fa-solid fa-phone"></i> Teléfono</th>
+        <th><i class="fa-solid fa-gear"></i> Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let e of empleados">
+        <td>{{ e.nombre }}</td>
+        <td>{{ e.cargo }}</td>
+        <td>{{ e.telefono }}</td>
+        <td>
+          <button class="btn btn-edit" (click)="editar(e)">
+            <i class="fa-solid fa-pen"></i>
+          </button>
+
+          <button class="btn btn-delete" (click)="eliminar(e.id!)">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

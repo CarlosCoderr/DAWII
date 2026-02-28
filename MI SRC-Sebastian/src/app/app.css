@@ -1,0 +1,123 @@
+/* CONTENEDOR GENERAL */
+.app-container {
+  font-family: 'Segoe UI', sans-serif;
+  background: #fff7fa;
+  min-height: 100vh;
+}
+/* HERO / PORTADA */
+.hero {
+  background:
+    linear-gradient(rgba(255,111,145,0.75), rgba(255,150,113,0.75)),
+    url('https://images.unsplash.com/photo-1505250469679-203ad9ced0cb');
+  background-size: cover;
+  background-position: center;
+  padding: 80px 20px;
+  text-align: center;
+  color: white;
+}
+
+#categoria-container > h2 , p{
+    text-align:center;
+}
+#categoria-container > p{
+    margin: 20px auto;
+    font-size: 15pt;
+}
+#categoria-container > #nav1{
+    display:flex; 
+    justify-content:center; 
+    gap:10px; 
+    flex-wrap:wrap;
+    background-color: cornsilk;
+    padding: 10px;
+}
+#nav1  i{
+    color: rgb(45, 0, 179);
+}
+#nav1  a{
+    font-size: larger;
+}
+#categoria-container > h2 > i{
+    color: rgb(177, 151, 252);
+}
+
+
+
+
+
+
+
+
+
+
+
+.hero-content h1 {
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+.hero-content p {
+  font-size: 20px;
+  margin-bottom: 25px;
+}
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+/* NAV */
+.main-nav {
+  background: white;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.main-nav a {
+  text-decoration: none;
+  color: #ff6f91;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 10px;
+  transition: background 0.2s;
+}
+.main-nav a:hover {
+  background: #fff0f5;
+}
+.main-nav a.active {
+  background: #ff6f91;
+  color: white;
+}
+/* BOTONES (reutiliza los tuyos) */
+.btn {
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+.btn-primary {
+  background: linear-gradient(135deg, #ff6f91, #ff9671);
+  color: white;
+}
+.btn-secondary {
+  background: white;
+  color: #ff6f91;
+}
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  .hero-content h1 {
+    font-size: 34px;
+  }
+  .hero-buttons {
+    flex-direction: column;
+  }
+  .main-nav {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+}

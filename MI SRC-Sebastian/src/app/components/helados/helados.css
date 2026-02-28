@@ -1,0 +1,169 @@
+/* SELECTOR - Adaptado al estilo menta */
+select {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #b2dfdb;
+  font-size: 15pt;
+  background: white;
+  width: 100%; /* Ajustado para que ocupe el contenedor */
+  outline: none;
+}
+
+select:focus {
+  border-color: #4db6ac;
+  box-shadow: 0 0 5px rgba(77, 182, 172, 0.3);
+}
+
+/* Color destacado para precios o totales */
+.total {
+  font-weight: bold;
+  color: #00897b; 
+}
+
+/* CONTENEDOR - Estilo Vainilla */
+.categoria-container {
+  max-width: 900px;
+  margin: 40px auto;
+  background: #fffdf0; /* Crema suave */
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  font-family: 'Quicksand', 'Segoe UI', sans-serif; 
+  border: 2px solid #e0f2f1;
+}
+
+.categoria-container h2 {
+  text-align: center;
+  color: #00897b; 
+  margin: 10pt;
+  font-size: 20pt;
+}
+
+/* FORMULARIO */
+.categoria-form {
+  background: #e0f2f1; /* Fondo menta claro */
+  padding: 20px;
+  border-radius: 14px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.form-group label {
+    font-weight: 600;
+    font-size: 15pt;
+  margin-bottom: 6px;
+  color: #5d4037; /* Tono chocolate */
+}
+
+.form-group input {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #b2dfdb;
+  font-size: 15pt;
+  background: white;
+  width: 80%;
+}
+
+.form-group input:focus {
+  border-color: #4db6ac;
+  outline: none;
+  box-shadow: 0 0 5px rgba(77, 182, 172, 0.3);
+}
+
+/* BOTONES */
+.form-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #4db6ac, #26a69a);
+  color: white;
+  font-size: 15pt;
+}
+
+.btn-secondary {
+  background: #cfd8dc;
+  color: #546e7a;
+}
+
+/* TABLA */
+.categoria-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.categoria-table th {
+  background: #4db6ac;
+  color: white;
+  padding: 12px;
+  text-transform: uppercase;
+  font-size: 1rem;
+}
+
+.categoria-table td {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid #f1f8f7;
+  color: #444;
+  font-size: 1rem;
+}
+
+.categoria-table tr:hover {
+  background: #f1fbf9;
+}
+
+/* BOTONES DE ACCIÓN */
+.btn-edit {
+  background-color: #0288d1;
+  color: white;
+}
+
+.btn-edit:hover {
+  background-color: white;
+  color: #0288d1;
+  border: 1px solid #0288d1;
+}
+
+.btn-delete {
+  background-color: #ef5350;
+  color: white;
+}
+
+.btn-delete:hover {
+  background-color: white;  
+  color: #ef5350;
+  border: 1px solid #ef5350;
+}
+h2 > i, th > i, label > i, button > i {
+  margin-right: 6px;
+  color: #00897b;
+}
+hr {
+  border: 0;
+  height: 5px;
+  background: #b2dfdb;
+  margin: 30px 0;
+}
